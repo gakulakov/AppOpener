@@ -52,7 +52,7 @@ fun Onboarding(onFinish: () -> Unit, viewModel: OnboardingViewModel = viewModel(
     val coroutineScope = rememberCoroutineScope()
 
     BackHandler(true) {
-        // Or do nothing
+        viewModel.changeIsCompleted(true)
         onFinish()
     }
 
