@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">AppOpenerWidget</string>
+    <string name="app_name" translatable="false">AppOpener</string>
+    <string name="placeholder_searchbar">Search...</string>
+    <string name="next_btn_onboarding">Next</string>
+    <string name="welcome_onboarding">Welcome to</string>
+    <string name="done">Done</string>
 </resources>

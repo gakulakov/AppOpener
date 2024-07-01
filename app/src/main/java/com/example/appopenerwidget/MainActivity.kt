@@ -1,11 +1,11 @@
 package com.example.appopenerwidget
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,15 +13,17 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
-import com.example.appopenerwidget.data.ApplicationItem
-import com.example.appopenerwidget.ui.components.Main
+import com.example.appopenerwidget.data.Screen
+import com.example.appopenerwidget.data.database.favirite_apps.FavoritesViewModel
+import com.example.appopenerwidget.navigation.Navigation
+import com.example.appopenerwidget.screens.onboarding.OnboardingViewModel
 import com.example.appopenerwidget.ui.theme.AppOpenerWidgetTheme
-import java.security.AccessController.getContext
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -37,13 +39,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val onboardingViewModel: OnboardingViewModel by viewModels()
+                    val isCompletedOnboarding by onboardingViewModel.isCompletedOnboarding.collectAsState(
+                        initial = null
+                    )
+
+                    val coroutineScope = rememberCoroutineScope()
+
                     LaunchedEffect(Unit) {
                         if (applicationId != null) {
-                            openAppById(applicationId)
+                            coroutineScope.launch {
+                                openAppById(applicationId)
+                            }
                         }
                     }
 
-                    if (applicationId != null) {
+                    if (applicationId != null || isCompletedOnboarding === null) {
                         Column(
                             modifier = Modifier.fillMaxSize(),
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,8 +63,12 @@ class MainActivity : ComponentActivity() {
                             CircularProgressIndicator()
                         }
                     } else {
-                        Main()
+
+                        Navigation(
+                            startDestination = if (isCompletedOnboarding as Boolean) Screen.Main.title else Screen.Onboarding.title
+                        )
                     }
+
                 }
             }
         }
@@ -62,7 +77,6 @@ class MainActivity : ComponentActivity() {
     private fun openAppById(applicationId: String) {
         val launchIntent =
             this.packageManager.getLaunchIntentForPackage(applicationId)
-        Log.d("MyLog", launchIntent.toString())
         this.startActivity(launchIntent)
         this.finish()
     }

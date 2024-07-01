@@ -5,6 +5,6 @@ import android.graphics.drawable.Drawable
 
 data class ApplicationItem(
     val appId: String,
+    val appName: String,
     val icon: Bitmap,
-    val appName: String
 )

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="placeholder_searchbar">Поиск...</string>
+    <string name="next_btn_onboarding">Дальше</string>
+    <string name="welcome_onboarding">Добро пожаловать в</string>
+    <string name="done">Завершить</string>
+</resources>
