@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <permission
+        android:name="com.gakulakov.appopenerwidget.PERMISSION"
+        android:protectionLevel="normal" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <queries>
         <intent>
@@ -20,30 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppOpenerWidget"
-        tools:targetApi="31">
-        <activity
-            android:name=".ExampleActivity"
-            android:launchMode="singleTask"
-            android:exported="true">
-        </activity>
-
-        <receiver
-            android:name=".MyAppWidgetReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
-            <meta-data
-                android:name="com.samsung.android.appwidget.provider"
-                android:resource="@xml/samsung_widget_info" />
-            <meta-data
-                android:name="android.supports_size_changes"
-                android:value="true" />
-        </receiver>
+        >
 
         <activity
             android:name=".MainActivity"
@@ -63,6 +42,53 @@
                 android:name="android.supports_size_changes"
                 android:value="true" />
         </activity>
+
+        <receiver
+            android:name=".AppOpenerWidgetProvider"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_opener_provider_info"
+                />
+            <meta-data
+                android:name="com.samsung.android.appwidget.provider"
+                android:resource="@xml/samsung_widget_info" />
+            <meta-data
+                android:name="android.supports_size_changes"
+                android:value="true" />
+        </receiver>
+
+        <receiver
+            android:name=".AppOpenerHomeWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_opener_provider_home_info" />
+            <meta-data
+                android:name="android.supports_size_changes"
+                android:value="true" />
+        </receiver>
+        <receiver
+            android:name=".WidgetClickReceiver"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="com.gakulakov.appopenerwidget.CLICK_ACTION" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".WidgetRemoveViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="true"/>
     </application>
 
 </manifest>

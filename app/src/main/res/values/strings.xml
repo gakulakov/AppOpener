@@ -4,4 +4,14 @@
     <string name="next_btn_onboarding">Next</string>
     <string name="welcome_onboarding">Welcome to</string>
     <string name="done">Done</string>
+    <string name="all_applications">All Applications</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorites_empty">No favorite apps</string>
+    <string name="onboarding_second">Just add our application to the widgets on your smartphone</string>
+    <string name="onboarding_third">Open settings, go to\n“External Screen” -> “Widgets” and enable AppOpenerWidget</string>
+    <string name="onboarding_final">" Your device can run any applications without restrictions on the lid of your smartphone"</string>
+    <string name="widget">Widget</string>
+    <string name="settings">Settings</string>
+    <string name="thats_all">That\'s all!</string>
+    <string name="open_settings">Open Settings</string>
 </resources>

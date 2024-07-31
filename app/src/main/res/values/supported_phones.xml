@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="supported_phones">
+        <item>SM-F731A</item>
+        <item>SM-F731B</item>
+        <item>SM-F731C</item>
+        <item>SM-F731D</item>
+        <item>SM-F731</item>
+    </string-array>
+</resources>

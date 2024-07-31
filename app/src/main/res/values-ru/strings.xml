@@ -4,4 +4,14 @@
     <string name="next_btn_onboarding">Дальше</string>
     <string name="welcome_onboarding">Добро пожаловать в</string>
     <string name="done">Завершить</string>
+    <string name="all_applications">Все приложения</string>
+    <string name="favorites">Избранное</string>
+    <string name="favorites_empty">Избранных приложений нет</string>
+    <string name="onboarding_second">Просто добавьте наше приложение в виджеты на крышке Вашего смартфона</string>
+    <string name="onboarding_third">Откройте настройки, перейдите в\n“Внешний экран” -> “Виджеты” и включите AppOpenerWidget</string>
+    <string name="onboarding_final">Ваше устройство может запускать любые приложения без ограничений на крышке Вашего смартфона</string>
+    <string name="widget">Виджет</string>
+    <string name="settings">Настройки</string>
+    <string name="thats_all">Вот и всё!</string>
+    <string name="open_settings">Открыть Настройки</string>
 </resources>

@@ -3,5 +3,6 @@
     display="sub_screen"
     privacyWidget="true"
     fullScreen="true"
+    updatePeriodMillis="180000"
     >
 </samsung-appwidget-provider>
