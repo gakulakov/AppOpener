@@ -85,10 +85,19 @@
                 <action android:name="com.gakulakov.appopenerwidget.CLICK_ACTION" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".WidgetClickHomeReceiver"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="com.gakulakov.appopenerwidget.CLICK_ACTION" />
+            </intent-filter>
+        </receiver>
 
         <service android:name=".WidgetRemoveViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="true"/>
+
     </application>
 
 </manifest>

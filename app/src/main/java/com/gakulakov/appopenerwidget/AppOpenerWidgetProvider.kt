@@ -13,7 +13,7 @@ import android.util.TypedValue
 import android.widget.RemoteViews
 import com.gakulakov.appopenerwidget.utils.consoleLog
 
-open class AppOpenerWidgetProvider : AppWidgetProvider() {
+open class AppOpenerWidgetProvider(val isHome: Boolean? = false) : AppWidgetProvider() {
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
     }
@@ -31,7 +31,6 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
                     .apply {
                         putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                         data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-
                     }
 
                 val remoteViews =
@@ -43,7 +42,7 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
 
                 // TODO: Можно отказаться от избыточного BroadcastReceiver (ЗАРЕФАКТОРИТЬ!)
 
-                val clickIntent = Intent(context, WidgetClickReceiver::class.java).apply {
+                val clickIntent = Intent(context, if(isHome == true) WidgetClickHomeReceiver::class.java else WidgetClickReceiver::class.java).apply {
                     action = CLICK_ACTION
                 }
 
@@ -56,7 +55,7 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
                 remoteViews.setPendingIntentTemplate(R.id.widget_grid_view, clickPendingIntent)
 
                 val intentTab =
-                    Intent(context, AppOpenerWidgetProvider::class.java).apply {
+                    Intent(context, this::class.java).apply {
                         action = CHANGE_TAB
                         putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                     }
@@ -97,6 +96,8 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
+        consoleLog("CLICK")
+
         if (intent.action == CHANGE_TAB) {
             // TODO: Зарефакторить
             val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -129,6 +130,7 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
                 views.setTextViewTextSize(R.id.favorites_tab, TypedValue.COMPLEX_UNIT_SP, 16f)
                 views.setTextColor(R.id.favorites_tab, Color.WHITE)
 
+                consoleLog("FAVORITES")
                 updateWidgetData(context, "favorites")
             }
 
@@ -139,19 +141,11 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
             val appWidgetIds = appWidgetManager.getAppWidgetIds(
                 ComponentName(
                     context,
-                    AppOpenerWidgetProvider::class.java
+                    this::class.java
                 )
             )
 
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view)
-
-//            val appWidgetId = intent.getIntExtra(
-//                AppWidgetManager.EXTRA_APPWIDGET_ID,
-//                AppWidgetManager.INVALID_APPWIDGET_ID
-//            )
-//            val views = RemoteViews(context.packageName, R.layout.widget_app_opener)
-//
-//            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
         super.onReceive(context, intent)
     }
@@ -176,7 +170,7 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
         val appWidgetIds = appWidgetManager.getAppWidgetIds(
             ComponentName(
                 context,
-                AppOpenerWidgetProvider::class.java
+                this::class.java
             )
         )
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view)
@@ -185,6 +179,7 @@ open class AppOpenerWidgetProvider : AppWidgetProvider() {
     companion object {
         const val CLICK_ACTION = "com.gakulakov.appopenerwidget.CLICK_ACTION"
         const val EXTRA_ITEM_ID = "com.gakulakov.appopenerwidget.EXTRA_ITEM_ID"
+        const val EXTRA_IS_HOME = "com.gakulakov.appopenerwidget.IS_HOME"
         const val CHANGE_TAB = "com.gakulakov.appopenerwidget.CHANGE_TAB"
         const val UPDATE_FAVORITES = "com.gakulakov.appopenerwidget.UPDATE"
     }

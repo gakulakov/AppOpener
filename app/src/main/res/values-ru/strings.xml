@@ -7,7 +7,7 @@
     <string name="all_applications">Все приложения</string>
     <string name="favorites">Избранное</string>
     <string name="favorites_empty">Избранных приложений нет</string>
-    <string name="onboarding_second">Просто добавьте наше приложение в виджеты на крышке Вашего смартфона</string>
+    <string name="onboarding_second">Просто добавьте наше приложение в виджеты на крышке Вашего смартфона или на главный экран</string>
     <string name="onboarding_third">Откройте настройки, перейдите в\n“Внешний экран” -> “Виджеты” и включите AppOpenerWidget</string>
     <string name="onboarding_final">Ваше устройство может запускать любые приложения без ограничений на крышке Вашего смартфона</string>
     <string name="widget">Виджет</string>

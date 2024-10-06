@@ -1,4 +1,3 @@
 package com.gakulakov.appopenerwidget
 
-class AppOpenerHomeWidgetProvider: AppOpenerWidgetProvider() {
-}
+class AppOpenerHomeWidgetProvider: AppOpenerWidgetProvider(isHome = true)

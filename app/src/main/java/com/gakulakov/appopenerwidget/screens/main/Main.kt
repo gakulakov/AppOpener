@@ -70,6 +70,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gakulakov.appopenerwidget.AppOpenerHomeWidgetProvider
 import com.gakulakov.appopenerwidget.AppOpenerWidgetProvider
 import com.gakulakov.appopenerwidget.R
 import com.gakulakov.appopenerwidget.data.ApplicationItem
@@ -100,10 +101,14 @@ fun Main() {
 
     fun sendUpdateBroadcast() {
         val context = mContext.applicationContext
-        val intent = Intent(context, AppOpenerWidgetProvider::class.java).apply {
+        val intentCover = Intent(context, AppOpenerWidgetProvider::class.java).apply {
             action = AppOpenerWidgetProvider.UPDATE_FAVORITES
         }
-        context.sendBroadcast(intent)
+        val intentHome = Intent(context, AppOpenerHomeWidgetProvider::class.java).apply {
+            action = AppOpenerWidgetProvider.UPDATE_FAVORITES
+        }
+        context.sendBroadcast(intentCover)
+        context.sendBroadcast(intentHome)
     }
 
     fun toggleFavoriteApp(app: Favorite) {
